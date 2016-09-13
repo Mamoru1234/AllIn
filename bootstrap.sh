@@ -19,10 +19,22 @@ apt-get -y install mysql-server
 mysql -u root -p$ROOT_PASSWORD<<EOI
 CREATE DATABASE all_in;
 USE all_in;
-CREATE TABLE services(
-    service_id VARCHAR(36) NOT NULL,
-    service_name VARCHAR(200) NOT NULL UNIQUE,
-    PRIMARY KEY (service_id)
+CREATE TABLE clients(
+    client_id VARCHAR(36) NOT NULL,
+    client_name VARCHAR(200) NOT NULL UNIQUE,
+    PRIMARY KEY (client_id)
+);
+CREATE TABLE users(
+    user_id VARCHAR(36) NOT NULL,
+    user_mail VARCHAR(200) NOT NULL UNIQUE,
+    user_password VARCHAR(200) NOT NULL UNIQUE,
+    PRIMARY KEY (user_id)
+);
+CREATE TABLE users_personal_info(
+    user_id VARCHAR(36) NOT NULL,
+    country VARCHAR(200) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (user_id)
+    ON DELETE CASCADE
 );
 exit
 EOI

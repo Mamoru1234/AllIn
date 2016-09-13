@@ -12,6 +12,7 @@ import org.springframework.context.annotation.ComponentScans;
 @EnableAutoConfiguration
 @ComponentScans({
     @ComponentScan("com.github.allin.controllers"),
+    @ComponentScan("com.github.allin.models"),
     @ComponentScan("com.github.allin.server.config")
 })
 public class Server {
