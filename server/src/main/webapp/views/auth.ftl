@@ -9,7 +9,7 @@
 <body>
 <div>
     <div>
-        АУЦАауц
+        Auth
     </div>
     <div>
         <#--${client.getClientName()}-->

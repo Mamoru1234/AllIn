@@ -16,29 +16,18 @@ import java.io.IOException;
 public class AuthController {
     @Autowired
     Client.DAO clientDAO;
-    private static final String sighnInRedirectTemplate = "redirect:/sign_in?client_id=%s";
 
     @GetMapping("/auth")
     public String auth(
             @RequestParam("client_id") String clientID,
 //            @RequestParam("redirect_url") String redirectURL,
-            @SessionAttribute(value = "user_id", required = false) String userID
-    ) throws IOException {
-        System.out.println(userID);
-        if (userID == null) {
-            return String.format(sighnInRedirectTemplate, clientID);
-        }
-        return "auth";
-    }
-
-    @GetMapping("/sign_in")
-    public String permissions(
-            @RequestParam("client_id") String clientID,
+            @SessionAttribute(value = "user_id", required = false) String userID,
             HttpServletRequest request
-            ) {
-        request.getSession().setAttribute("user_id", clientID);
-//        Client client = clientDAO.getByID(clientID);
-//        modelMap.addAttribute("client", client);
+    ) throws IOException {
+        request.getSession().setAttribute("client_id", clientID);
+        if (userID == null) {
+            return "redirect:/sign_in";
+        }
         return "auth";
     }
 }

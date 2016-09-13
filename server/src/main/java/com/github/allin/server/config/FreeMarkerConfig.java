@@ -7,9 +7,7 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 import java.io.IOException;
 
-/**
- * Created by user on 9/11/2016.
- */
+
 @Configuration
 public class FreeMarkerConfig {
     @Bean

@@ -24,9 +24,13 @@ public class User {
         @Autowired
         JdbcTemplate jdbcTemplate;
 
-        public User getByID(String userID) {
-            String sql = "SELECT * FROM users WHERE user_id = ?";
-            return jdbcTemplate.queryForObject(sql, new Object[] {userID}, new Mapper());
+        public User getByMail(String userMail) {
+            String sql = "SELECT * FROM users WHERE user_mail = ?";
+            return jdbcTemplate.queryForObject(sql, new Object[] {userMail}, new Mapper());
+        }
+        public int insert(User user) {
+            String sql = "INSERT INTO users (user_id, user_mail, user_password) VALUES (? , ?, ?)";
+            return jdbcTemplate.update(sql, new Object[]{user.getUserID(), user.getUserMail(), user.getUserPassword()});
         }
         class Mapper implements RowMapper<User>{
 
