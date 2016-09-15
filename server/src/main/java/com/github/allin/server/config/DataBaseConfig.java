@@ -14,7 +14,7 @@ public class DataBaseConfig {
     @Bean(name="dataSource")
     public DriverManagerDataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl(DB_URL);
         dataSource.setUsername(USER);
         dataSource.setPassword(PASSWORD);

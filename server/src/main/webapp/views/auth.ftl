@@ -11,9 +11,13 @@
     <div>
         Auth
     </div>
+    <div>${user.getUserName()}</div>
     <div>
-        <#--${client.getClientName()}-->
+        ${client.getClientName()}
     </div>
+    <form action="/auth" method="post">
+        <input type="submit">
+    </form>
 </div>
 <form></form>
 </body>

@@ -2,6 +2,7 @@ package com.github.allin.models;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -12,9 +13,11 @@ import java.sql.SQLException;
 
 /**
  */
+@Log4j
 @Builder
 @Data
 public class User {
+    private String userName;
     private String userMail;
     private String userPassword;
     private String userID;
@@ -24,13 +27,22 @@ public class User {
         @Autowired
         JdbcTemplate jdbcTemplate;
 
+        public User getByID(String userID) {
+            log.debug("getByID" + userID);
+            String sql = "SELECT * FROM users WHERE user_id = ?";
+            return jdbcTemplate.queryForObject(sql, new Object[] {userID}, new Mapper());
+        }
+
         public User getByMail(String userMail) {
+            log.debug("getByMail" + userMail);
             String sql = "SELECT * FROM users WHERE user_mail = ?";
             return jdbcTemplate.queryForObject(sql, new Object[] {userMail}, new Mapper());
         }
         public int insert(User user) {
-            String sql = "INSERT INTO users (user_id, user_mail, user_password) VALUES (? , ?, ?)";
-            return jdbcTemplate.update(sql, new Object[]{user.getUserID(), user.getUserMail(), user.getUserPassword()});
+            String sql = "INSERT INTO users (user_id, user_mail, user_password, user_name) VALUES (? , ?, ?, ?)";
+            return jdbcTemplate.update(sql, new Object[]{
+                user.getUserID(), user.getUserMail(), user.getUserPassword(), user.getUserName()
+            });
         }
         class Mapper implements RowMapper<User>{
 

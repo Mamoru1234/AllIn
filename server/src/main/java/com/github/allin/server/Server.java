@@ -1,6 +1,8 @@
 package com.github.allin.server;
 
 import com.github.allin.server.config.FreeMarkerConfig;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
