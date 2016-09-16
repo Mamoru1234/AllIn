@@ -39,9 +39,8 @@ public class User {
         }
         public int insert(User user) {
             String sql = "INSERT INTO users (user_id, user_mail, user_password) VALUES (? , ?, ?)";
-            return jdbcTemplate.update(sql, new Object[]{
-                user.getUserID(), user.getUserMail(), user.getUserPassword()
-            });
+            return jdbcTemplate.update(sql, user.getUserID(), user.getUserMail(),
+                    user.getUserPassword());
         }
         class Mapper implements RowMapper<User>{
 

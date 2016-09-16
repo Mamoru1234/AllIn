@@ -15,9 +15,10 @@
         ${client.getClientName()}
     </div>
     <form action="/auth" method="post">
+        <input type="hidden" name="client_id" value="${client.getClientID()}">
+        <input type="hidden" name="user_id" value="${user.getUserID()}">
         <input type="submit">
     </form>
 </div>
-<form></form>
 </body>
 </html>

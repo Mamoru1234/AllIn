@@ -18,6 +18,7 @@ import java.util.List;
 public class Client {
     private String clientID;
     private String clientName;
+    private String clientSecret;
 
     @Repository
     public static class DAO {
@@ -28,9 +29,11 @@ public class Client {
             String sql = "SELECT * FROM clients WHERE client_id = ?";
             return jdbcTemplate.queryForObject(sql, new Object[]{clientID}, new Mapper());
         }
+
         public List<Client> getAll() {
             return jdbcTemplate.query("SELECT * FROM clients", new Mapper());
         }
+
         private class Mapper implements RowMapper<Client> {
 
             @Override
@@ -38,6 +41,7 @@ public class Client {
                 return Client.builder()
                         .clientID(rs.getString("client_id"))
                         .clientName(rs.getString("client_name"))
+                        .clientSecret(rs.getString("client_secret"))
                         .build();
             }
         }

@@ -8,6 +8,10 @@ echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-se
 apt-get install --yes oracle-java8-installer
 yes "" | apt-get -f install
 
+apt-get update
+apt-get install -y redis-server
+/etc/init.d/redis-server start
+
 ROOT_PASSWORD="admin"
 
 apt-get update
@@ -22,6 +26,7 @@ USE all_in;
 CREATE TABLE clients(
     client_id VARCHAR(36) NOT NULL,
     client_name VARCHAR(200) NOT NULL UNIQUE,
+    client_secret VARCHAR(200) NOT NULL UNIQUE,
     PRIMARY KEY (client_id)
 );
 CREATE TABLE users(
@@ -34,6 +39,15 @@ CREATE TABLE users_personal_info(
     user_id VARCHAR(36) NOT NULL,
     country VARCHAR(200) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (user_id)
+    ON DELETE CASCADE
+);
+CREATE TABLE permissions (
+    access_token VARCHAR(36) NOT NULL UNIQUE,
+    user_id VARCHAR(36) NOT NULL,
+    client_id VARCHAR(36) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (user_id)
+    ON DELETE CASCADE,
+    FOREIGN KEY (client_id) REFERENCES clients (client_id)
     ON DELETE CASCADE
 );
 exit

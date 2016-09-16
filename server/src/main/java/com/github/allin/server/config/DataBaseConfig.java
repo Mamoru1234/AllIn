@@ -10,7 +10,7 @@ public class DataBaseConfig {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/all_in?autoReconnect=true" +
             "&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private static final String USER = "root";
-    private static final String PASSWORD = "1234";
+    private static final String PASSWORD = "admin";
     @Bean(name="dataSource")
     public DriverManagerDataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
