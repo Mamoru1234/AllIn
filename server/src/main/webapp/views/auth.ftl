@@ -11,7 +11,6 @@
     <div>
         Auth
     </div>
-    <div>${user.getUserName()}</div>
     <div>
         ${client.getClientName()}
     </div>

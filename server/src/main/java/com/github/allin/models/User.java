@@ -17,7 +17,6 @@ import java.sql.SQLException;
 @Builder
 @Data
 public class User {
-    private String userName;
     private String userMail;
     private String userPassword;
     private String userID;
@@ -39,9 +38,9 @@ public class User {
             return jdbcTemplate.queryForObject(sql, new Object[] {userMail}, new Mapper());
         }
         public int insert(User user) {
-            String sql = "INSERT INTO users (user_id, user_mail, user_password, user_name) VALUES (? , ?, ?, ?)";
+            String sql = "INSERT INTO users (user_id, user_mail, user_password) VALUES (? , ?, ?)";
             return jdbcTemplate.update(sql, new Object[]{
-                user.getUserID(), user.getUserMail(), user.getUserPassword(), user.getUserName()
+                user.getUserID(), user.getUserMail(), user.getUserPassword()
             });
         }
         class Mapper implements RowMapper<User>{

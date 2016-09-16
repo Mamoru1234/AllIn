@@ -26,7 +26,6 @@ CREATE TABLE clients(
 );
 CREATE TABLE users(
     user_id VARCHAR(36) NOT NULL,
-    user_name VARCHAR(200) NOT NULL,
     user_mail VARCHAR(200) NOT NULL UNIQUE,
     user_password VARCHAR(200) NOT NULL UNIQUE,
     PRIMARY KEY (user_id)
