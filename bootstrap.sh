@@ -54,5 +54,5 @@ exit
 EOI
 
 # start server
-#cd /vagrant
-#./gradlew :server:run
+cd /vagrant
+./gradlew :server:bootRun
