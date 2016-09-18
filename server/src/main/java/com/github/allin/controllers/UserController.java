@@ -25,20 +25,27 @@ public class UserController {
     public String postSignIn(
             @RequestParam("user_mail") String userMail,
             @RequestParam("user_password") String userPassword,
+            @SessionAttribute(value = "client_id", required = false) String client_id,
             Model model
     ) {
         User user;
         try {
             user = userDAO.getByMail(userMail);
+            log.debug("user from DB: " + user);
         } catch (EmptyResultDataAccessException e) {
             log.debug("Wrong user email");
+            model.addAttribute("wrong_input", true);
             return "sign_in";
         }
         if (!userPassword.equals(user.getUserPassword())) {
             log.debug("Wrong user password");
+            model.addAttribute("wrong_input", true);
             return "sign_in";
         }
         model.addAttribute("user_id", user.getUserID());
-        return "redirect:/permission";
+        if (client_id != null) {
+            return "redirect:/permission";
+        }
+        return "welcome";
     }
 }

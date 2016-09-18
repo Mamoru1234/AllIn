@@ -9,6 +9,9 @@
 <body>
 <div>
     <div>Sign In</div>
+    <#if wrong_input??>
+        <div>Wrong pass or email</div>
+    </#if>
     <form
         action="/sign_in"
         method="post"
