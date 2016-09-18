@@ -111,6 +111,7 @@ public class AuthControllerTest {
             .andExpect(jsonPath("$.access_token").value(accessToken));
         verify(clientDAO, times(1)).getByID(client.getClientID());
         verify(grantTokenService, times(1)).getUserID(grantToken);
+        verify(grantTokenService, times(1)).invalidate(grantToken);
         verify(accessTokenService, times(1)).getAccessToken(client, userID);
     }
     @Test

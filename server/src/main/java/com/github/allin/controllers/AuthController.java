@@ -68,6 +68,7 @@ public class AuthController {
         if (userID == null) {
             throw new WrongTokenException();
         }
+        grantTokenService.invalidate(grantToken);
         Map<String, String> response = new HashMap<>();
         String accessToken = accessTokenService.getAccessToken(client, userID);
         response.put("access_token", accessToken);

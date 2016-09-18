@@ -18,3 +18,4 @@ include 'services:webservice'
 
 rootProject.name = 'AllIn'
 include ':server'
+include ':client'

@@ -1,4 +1,4 @@
-package com.github.allin.server.config;
+package com.github.allin.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

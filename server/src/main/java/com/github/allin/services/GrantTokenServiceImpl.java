@@ -7,6 +7,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -21,7 +22,7 @@ public class GrantTokenServiceImpl implements GrantTokenService {
 
     @Override
     public String getToken(String userID) {
-        String grantToken = "grant_token";
+        String grantToken = UUID.randomUUID().toString();
         log.debug("grantToken: " + grantToken);
         valueOperations.set(grantToken, userID, 1, TimeUnit.DAYS);
         return grantToken;
@@ -29,11 +30,11 @@ public class GrantTokenServiceImpl implements GrantTokenService {
 
     @Override
     public String getUserID(String grantToken) {
-        return null;
+        return valueOperations.get(grantToken);
     }
 
     @Override
     public void invalidate(String grantToken) {
-
+        valueOperations.set(grantToken, null, 1, TimeUnit.MILLISECONDS);
     }
 }

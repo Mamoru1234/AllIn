@@ -13,16 +13,10 @@ import java.sql.SQLException;
 
 /**
  */
-@Log4j
 @Builder
 @Data
 public class User {
     private String userMail;
     private String userPassword;
     private String userID;
-
-    @Repository
-    public static class DAO {
-
-    }
 }
