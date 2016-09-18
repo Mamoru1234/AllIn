@@ -13,7 +13,7 @@
         <div>Wrong pass or email</div>
     </#if>
     <form
-        action="/sign_in"
+        action="/user/sign_in"
         method="post"
         enctype="application/x-www-form-urlencoded"
         id="sign_in_form"
@@ -21,13 +21,13 @@
         <input
             type="text"
             placeholder="mail"
-            name="mail"
+            name="user_mail"
             id="input_mail"
         />
         <input
             type="text"
             placeholder="password"
-            name="password"
+            name="user_password"
             id="input_password"
         />
     </form>

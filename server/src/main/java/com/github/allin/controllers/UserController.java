@@ -5,6 +5,7 @@ import com.github.allin.models.UserDAO;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Log4j
 @SessionAttributes({"user_id"})
+@Controller
 @RequestMapping("/user")
 public class UserController {
     @Autowired
@@ -19,6 +21,7 @@ public class UserController {
 
     @GetMapping("/sign_in")
     public String getSignIn() {
+        log.debug("get sign_in page");
         return "sign_in";
     }
     @PostMapping("/sign_in")
@@ -44,7 +47,7 @@ public class UserController {
         }
         model.addAttribute("user_id", user.getUserID());
         if (client_id != null) {
-            return "redirect:/permission";
+            return "redirect:/user/permission";
         }
         return "welcome";
     }

@@ -13,15 +13,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import utils.ViewResolverGenerator;
+import utils.MockMVCGenerator;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  */
@@ -38,10 +35,7 @@ public class UserControllerTest {
     @Before
     public void setUp() {
         reset(userDAO);
-        mockMvc = MockMvcBuilders
-                .standaloneSetup(userController)
-                .setViewResolvers(ViewResolverGenerator.generate())
-                .build();
+        mockMvc = MockMVCGenerator.generate(userController);
     }
     @Test
     public void signInGet() throws Exception {
@@ -71,7 +65,7 @@ public class UserControllerTest {
                         .param("user_password", user.getUserPassword()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(model().attribute("user_id", user.getUserID()))
-                .andExpect(view().name("redirect:/permission"));
+                .andExpect(view().name("redirect:/user/permission"));
         verify(userDAO).getByMail(user.getUserMail());
         verifyNoMoreInteractions(userDAO);
     }

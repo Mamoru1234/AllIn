@@ -10,8 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import utils.ViewResolverGenerator;
+import utils.MockMVCGenerator;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -28,10 +27,7 @@ public class AuthControllerTest {
 
     @Before
     public void setUp() {
-        mockMvc = MockMvcBuilders
-                .standaloneSetup(authController)
-                .setViewResolvers(ViewResolverGenerator.generate())
-                .build();
+        mockMvc = MockMVCGenerator.generate(authController);
     }
     @Test
     public void authorize_With_Attr() throws Exception {
@@ -52,7 +48,7 @@ public class AuthControllerTest {
                 .param("redirect_url", redirectURL)
                 .sessionAttr("user_id", userID))
             .andExpect(status().is3xxRedirection())
-            .andExpect(view().name("redirect:/permission"))
+            .andExpect(view().name("redirect:/user/permission"))
             .andExpect(model().attribute("client_id", clientID))
             .andExpect(model().attribute("redirect_url", redirectURL));
     }
