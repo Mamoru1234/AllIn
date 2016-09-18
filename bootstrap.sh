@@ -32,12 +32,15 @@ CREATE TABLE clients(
 CREATE TABLE users(
     user_id VARCHAR(36) NOT NULL,
     user_mail VARCHAR(200) NOT NULL UNIQUE,
-    user_password VARCHAR(200) NOT NULL UNIQUE,
+    user_password VARCHAR(200) NOT NULL,
     PRIMARY KEY (user_id)
 );
-CREATE TABLE users_personal_info(
+CREATE TABLE personal_info(
     user_id VARCHAR(36) NOT NULL,
+    first_name VARCHAR(200) NOT NULL,
+    sur_name VARCHAR(200) NOT NULL,
     country VARCHAR(200) NOT NULL,
+    gender VARCHAR(10) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (user_id)
     ON DELETE CASCADE
 );
@@ -54,5 +57,5 @@ exit
 EOI
 
 # start server
-#cd /vagrant
-#./gradlew :server:bootRun
+cd /vagrant
+./gradlew :server:bootRun

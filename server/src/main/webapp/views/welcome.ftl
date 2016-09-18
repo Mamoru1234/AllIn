@@ -6,6 +6,8 @@
     <title>All IN</title>
 </head>
 <body>
-    Welcome
+<a href="/user/general_info">
+    General info
+</a>
 </body>
 </html>

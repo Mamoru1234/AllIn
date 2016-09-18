@@ -1,5 +1,7 @@
 package com.github.allin.models;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 /**
  */
 public interface UserDAO {

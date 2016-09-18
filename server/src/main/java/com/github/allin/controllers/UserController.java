@@ -4,10 +4,14 @@ import com.github.allin.models.User;
 import com.github.allin.models.UserDAO;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.UUID;
 
 /**
  */
@@ -50,5 +54,37 @@ public class UserController {
             return "redirect:/user/permission";
         }
         return "welcome";
+    }
+
+    @GetMapping("/sign_up")
+    public String userSignUpGet(
+            @SessionAttribute(value = "client_id", required = false) String clientID
+    ) {
+        if (clientID == null) {
+            return "sign_up";
+        }
+        return "welcome";
+    }
+
+    @PostMapping("/sign_up")
+    public String userSignUpForm(
+            @RequestParam("user_mail") String userMail,
+            @RequestParam("user_pass") String userPass,
+            Model model
+    ) {
+        User user = User.builder()
+                .userID(UUID.randomUUID().toString())
+                .userMail(userMail)
+                .userPassword(userPass)
+                .build();
+        try {
+            userDAO.insert(user);
+            model.addAttribute("user_id", user.getUserID());
+            return "redirect:/";
+        }catch (DataIntegrityViolationException e) {
+            log.error("data error: ", e);
+            model.addAttribute("err_mail", true);
+            return "sign_up";
+        }
     }
 }

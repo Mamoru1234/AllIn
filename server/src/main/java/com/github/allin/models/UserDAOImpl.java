@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import javax.jws.soap.SOAPBinding;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
  */

@@ -28,6 +28,12 @@ public class PermissionDAOImpl implements PermissionDAO{
         return jdbcTemplate.queryForObject(sql, new Object[]{clientID, userID}, new Mapper());
     }
 
+    @Override
+    public Permission getForToken(String token) {
+        String sql = "SELECT * FROM permissions WHERE access_token=?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{token}, new Mapper());
+    }
+
     private class Mapper implements RowMapper<Permission> {
 
         @Override
