@@ -3,5 +3,6 @@ package com.github.allin.models;
 /**
  */
 public interface PermissionDAO {
-    public int insert(Permission permission);
+    int insert(Permission permission);
+    Permission getForClient(String clientID, String userID);
 }

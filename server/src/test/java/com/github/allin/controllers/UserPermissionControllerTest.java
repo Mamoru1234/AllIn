@@ -5,6 +5,7 @@ import com.github.allin.models.ClientDAO;
 import com.github.allin.models.User;
 import com.github.allin.models.UserDAO;
 import com.github.allin.services.GrantTokenService;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,6 +50,10 @@ public class UserPermissionControllerTest {
         mockMvc = MockMVCGenerator.generate(userPermissionController);
         reset(userDAO, clientDAO, grantTokenService);
     }
+    @After
+    public void after() {
+        verifyNoMoreInteractions(grantTokenService, clientDAO, userDAO);
+    }
     @Test
     public void getUserPermissionPage() throws Exception {
         User user = getUserInstance("USer_id");
@@ -65,7 +70,6 @@ public class UserPermissionControllerTest {
             .andExpect(model().attribute("user", user));
         verify(clientDAO, times(1)).getByID(client.getClientID());
         verify(userDAO, times(1)).getByID(user.getUserID());
-        verifyNoMoreInteractions(grantTokenService, clientDAO, userDAO);
     }
     @Test
     public void postPermissionForm() throws Exception {
@@ -82,7 +86,6 @@ public class UserPermissionControllerTest {
             .andExpect(status().is3xxRedirection())
             .andExpect(redirectedUrl(redirectURL + "?grant_token=" + grantToken));
         verify(grantTokenService, times(1)).getToken(userID);
-        verifyNoMoreInteractions(grantTokenService, userDAO, clientDAO);
     }
     public static User getUserInstance(String id) {
         return User.builder()

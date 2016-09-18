@@ -22,6 +22,12 @@ public class PermissionDAOImpl implements PermissionDAO{
                 permission.getAccessToken(), permission.getClientID(), permission.getUserID());
     }
 
+    @Override
+    public Permission getForClient(String clientID, String userID) {
+        String sql = "SELECT * FROM permissions WHERE client_id=? AND user_id =?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{clientID, userID}, new Mapper());
+    }
+
     private class Mapper implements RowMapper<Permission> {
 
         @Override

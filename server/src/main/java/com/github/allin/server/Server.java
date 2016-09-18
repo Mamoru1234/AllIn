@@ -14,7 +14,8 @@ import org.springframework.context.annotation.ComponentScans;
     @ComponentScan("com.github.allin.controllers"),
     @ComponentScan("com.github.allin.models"),
     @ComponentScan("com.github.allin.server.config"),
-    @ComponentScan("com.github.allin.services")
+    @ComponentScan("com.github.allin.services"),
+    @ComponentScan("com.github.allin.advices")
 })
 public class Server {
     public static void main(String[] args) throws Exception {

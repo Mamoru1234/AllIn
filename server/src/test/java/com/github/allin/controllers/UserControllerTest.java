@@ -2,6 +2,7 @@ package com.github.allin.controllers;
 
 import com.github.allin.models.User;
 import com.github.allin.models.UserDAO;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,6 +38,11 @@ public class UserControllerTest {
         reset(userDAO);
         mockMvc = MockMVCGenerator.generate(userController);
     }
+    @After
+    public void after() {
+        verifyNoMoreInteractions(userDAO);
+    }
+
     @Test
     public void signInGet() throws Exception {
         mockMvc.perform(get("/user/sign_in"))
@@ -67,7 +73,6 @@ public class UserControllerTest {
                 .andExpect(model().attribute("user_id", user.getUserID()))
                 .andExpect(view().name("redirect:/user/permission"));
         verify(userDAO).getByMail(user.getUserMail());
-        verifyNoMoreInteractions(userDAO);
     }
     @Test
     public void signInPostWrongMail() throws Exception {
@@ -83,7 +88,6 @@ public class UserControllerTest {
                 .andExpect(model().attribute("wrong_input", true))
                 .andExpect(view().name("sign_in"));
         verify(userDAO).getByMail(wrongEmail);
-        verifyNoMoreInteractions(userDAO);
     }
     @Test
     public void signInPostWrongPass() throws Exception {
@@ -98,7 +102,6 @@ public class UserControllerTest {
                 .andExpect(model().attribute("wrong_input", true))
                 .andExpect(view().name("sign_in"));
         verify(userDAO).getByMail(user.getUserMail());
-        verifyNoMoreInteractions(userDAO);
     }
     private static User getUserInstance() {
         return User.builder()
